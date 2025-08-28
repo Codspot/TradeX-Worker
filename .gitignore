@@ -1,0 +1,41 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment
+.env
+.env.*
+!.env.example  # optional if you want to show sample
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+.idea/
+.vscode/
+
+# Compiled
+*.so
+*.egg
+*.egg-info/
+
+# Render cache
+*.sqlite3
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+
+# Bytecode
+*.swp
+
+# VSCode
+.vscode/

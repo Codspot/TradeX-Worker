@@ -1,0 +1,11 @@
+flask
+flask-socketio
+eventlet
+python-dotenv
+logzero
+pyotp
+requests
+websocket-client
+smartapi-python
+gunicorn
+pytz

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: smartconnect
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --worker-class eventlet -w 1 run:app"
+    envVars:
+      - key: ENV
+        value: production
+      - key: SECRET_KEY
+        value: 8f5c6039c46e3479212a13cf01d7c3efb2a7b4a45eac1b732df1192b5bcbfda9
+      - key: API_KEY
+        value: ghB9zGuH
+      - key: CLIENT_CODE
+        value: AAAN817633
+      - key: TOTP_SECRET
+        value: ARAFNN3V35GN7YLUSUJ7MHFSXE
+      - key: PASSWORD
+        value: 4656
