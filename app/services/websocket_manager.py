@@ -73,51 +73,41 @@ class SmartApiWebSocketManager:
         import requests
         from datetime import datetime
         
-        # Use the configured backend webhook URL
-        backend_tick_url = config.get_backend_tick_url(self.websocket_id)
-        
-        # Also send to candle processing endpoint
+        # Only send to candle processing endpoint (no duplicate calls)
         backend_candle_url = config.get_backend_candle_url()
         
-        # Format payload according to LtpDataDto structure
-        payload = {
-            "websocket_id": self.websocket_id,
-            "tick": tick,
-            "timestamp": datetime.now().isoformat()
-        }
-        
-        try:
-            # Send to websocket endpoint (original behavior)
-            response = requests.post(backend_tick_url, json=payload, timeout=2)
-            if response.status_code != 200:
-                logger.warning(f"Backend websocket returned status {response.status_code}: {response.text}")
-                
-            # Send to candle processing endpoint (new behavior)
-            # Transform tick data for candle processing
-            candle_payload = self.transform_tick_for_candle(tick)
-            if candle_payload:
+        # Transform tick data for candle processing
+        candle_payload = self.transform_tick_for_candle(tick)
+        if candle_payload:
+            try:
                 candle_response = requests.post(backend_candle_url, json=candle_payload, timeout=2)
-                if candle_response.status_code != 200:
+                if candle_response.status_code not in [200, 201]:
                     logger.warning(f"Backend candle processing returned status {candle_response.status_code}: {candle_response.text}")
-                    
-        except Exception as e:
-            logger.error(f"Failed to forward tick to backend: {e}")
+                else:
+                    logger.debug(f"Successfully sent tick to candle processing: Token={candle_payload.get('token')}, LTP={candle_payload.get('ltp')}")
+            except Exception as e:
+                logger.error(f"Failed to forward tick to backend candle processing: {e}")
     
     def transform_tick_for_candle(self, tick):
         """Transform SmartAPI tick data to candle processing format"""
         try:
             from datetime import datetime
+            
             # SmartAPI tick format to candle format transformation
-            # Adjust this based on your actual SmartAPI tick structure
+            # Extract LTP from last_traded_price and convert paise to rupees
+            ltp_paise = tick.get("last_traded_price", 0)
+            ltp_rupees = ltp_paise / 100.0 if ltp_paise else 0.0
+            
             return {
                 "token": str(tick.get("token", "")),
-                "name": tick.get("name", "") or tick.get("symbol", ""),
-                "ltp": float(tick.get("ltp", 0)),
-                "volume": int(tick.get("volume", 0)),
-                "timestamp": tick.get("timestamp") or datetime.now().isoformat()
+                "name": tick.get("tradingsymbol", "") or tick.get("symbol", "") or f"Token-{tick.get('token', 'unknown')}",
+                "ltp": ltp_rupees,  # Convert paise to rupees
+                "volume": int(tick.get("volume_trade_for_the_day", 0)),
+                "timestamp": datetime.now().isoformat()
             }
         except Exception as e:
             logger.error(f"Failed to transform tick for candle processing: {e}")
+            logger.error(f"Tick data: {tick}")
             return None
 
     def stop(self):
