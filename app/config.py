@@ -50,8 +50,8 @@ class Config:
             'BACKEND_WEBHOOK_URL': cls.BACKEND_WEBHOOK_URL,
             'WORKER_HOST': cls.WORKER_HOST,
             'WORKER_PORT': cls.WORKER_PORT,
-            'SMARTAPI_API_KEY': cls.SMARTAPI_API_KEY[:8] + '***' if cls.SMARTAPI_API_KEY else 'Not Set',
-            'SMARTAPI_CLIENT_CODE': cls.SMARTAPI_CLIENT_CODE[:4] + '***' if cls.SMARTAPI_CLIENT_CODE else 'Not Set',
+            'SMARTAPI_API_KEY': cls.SMARTAPI_API_KEY[:8] + '***' if cls.SMARTAPI_API_KEY else 'Will be provided via API',
+            'SMARTAPI_CLIENT_CODE': cls.SMARTAPI_CLIENT_CODE[:4] + '***' if cls.SMARTAPI_CLIENT_CODE else 'Will be provided via API',
             'LOG_LEVEL': cls.LOG_LEVEL
         }
 
