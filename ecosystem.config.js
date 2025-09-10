@@ -14,18 +14,16 @@ module.exports = {
       max_memory_restart: "512M",
       env: {
         ENV: "production",
-        BACKEND_BASE_URL: "http://159.89.171.16.sslip.io",
-        BACKEND_WEBHOOK_URL:
-          "http://159.89.171.16.sslip.io/api/in-memory-candles",
+        BACKEND_BASE_URL: "http://localhost:5000",
+        BACKEND_WEBHOOK_URL: "http://localhost:5000/api/in-memory-candles",
         WORKER_HOST: "0.0.0.0",
         WORKER_PORT: "5002",
         LOG_LEVEL: "INFO",
       },
       env_development: {
         ENV: "development",
-        BACKEND_BASE_URL: "http://159.89.171.16.sslip.io",
-        BACKEND_WEBHOOK_URL:
-          "http://159.89.171.16.sslip.io/api/in-memory-candles",
+        BACKEND_BASE_URL: "http://localhost:5000",
+        BACKEND_WEBHOOK_URL: "http://localhost:5000/api/in-memory-candles",
         WORKER_HOST: "0.0.0.0",
         WORKER_PORT: "5002",
         LOG_LEVEL: "DEBUG",
