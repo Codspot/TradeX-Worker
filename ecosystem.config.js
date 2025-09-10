@@ -18,7 +18,7 @@ module.exports = {
         BACKEND_WEBHOOK_URL:
           "http://159.89.171.16.sslip.io/api/in-memory-candles",
         WORKER_HOST: "0.0.0.0",
-        WORKER_PORT: "5000",
+        WORKER_PORT: "5002",
         LOG_LEVEL: "INFO",
       },
       env_development: {
@@ -27,7 +27,7 @@ module.exports = {
         BACKEND_WEBHOOK_URL:
           "http://159.89.171.16.sslip.io/api/in-memory-candles",
         WORKER_HOST: "0.0.0.0",
-        WORKER_PORT: "5000",
+        WORKER_PORT: "5002",
         LOG_LEVEL: "DEBUG",
       },
       error_file: "./logs/smartapi-worker-error.log",
