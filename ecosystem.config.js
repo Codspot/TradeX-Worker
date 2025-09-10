@@ -15,7 +15,7 @@ module.exports = {
       env: {
         ENV: "production",
         BACKEND_BASE_URL: "http://localhost:5000",
-        BACKEND_WEBHOOK_URL: "http://localhost:5000/api/in-memory-candles",
+        BACKEND_WEBHOOK_URL: "http://localhost:5000/api/websocket",
         WORKER_HOST: "0.0.0.0",
         WORKER_PORT: "5002",
         LOG_LEVEL: "INFO",
@@ -23,7 +23,7 @@ module.exports = {
       env_development: {
         ENV: "development",
         BACKEND_BASE_URL: "http://localhost:5000",
-        BACKEND_WEBHOOK_URL: "http://localhost:5000/api/in-memory-candles",
+        BACKEND_WEBHOOK_URL: "http://localhost:5000/api/websocket",
         WORKER_HOST: "0.0.0.0",
         WORKER_PORT: "5002",
         LOG_LEVEL: "DEBUG",
